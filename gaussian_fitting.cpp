@@ -58,7 +58,7 @@ void gauss_grad(const alglib::real_1d_array &u, const alglib::real_1d_array &x, 
     grad[2]=func*pow((x[0]-u[1]),2)/pow(u[2],3);
 }
 
-int gaussian_fitting::fit_lev_marq(std::vector<double> x,std::vector<double> y,std::vector<double> u0,std::vector<double>& params,alglib::lsfitreport& rep,double tol) {
+int gaussian_fitting::fit_lev_marq(const std::vector<double>& x,const std::vector<double>& y,std::vector<double> u0,std::vector<double>& params,alglib::lsfitreport& rep,double tol) {
     alglib::real_2d_array x_;
     x_.setlength(x.size(),1);
     x_.setcontent(x.size(),1,x.data());

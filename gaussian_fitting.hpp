@@ -35,7 +35,7 @@ public:
      * @param  tol: tolerance
      * @retval error code, should be err > 0
      */
-    int fit_lev_marq(std::vector<double> x,std::vector<double> y,std::vector<double> u0,std::vector<double>& params,alglib::lsfitreport& rep,double tol=1e-6);
+    int fit_lev_marq(const std::vector<double>& x,const std::vector<double>& y,std::vector<double> u0,std::vector<double>& params,alglib::lsfitreport& rep,double tol=1e-6);
 };
 
 #endif
