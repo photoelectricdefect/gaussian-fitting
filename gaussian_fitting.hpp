@@ -8,9 +8,8 @@
 class gaussian_fitting
 {
 private:
-public:
     gaussian_fitting();
-    ~gaussian_fitting();
+public:
     
     /**
      * @brief Should only fit to data near gaussian peak, 
@@ -21,7 +20,7 @@ public:
      * @param  y: y axis values
      * @retval [ A, mu, sigma ]
      */
-    std::vector<double> fit_caruana(std::vector<double> x,std::vector<double> y);
+    static std::vector<double> fit_caruana(std::vector<double> x,std::vector<double> y);
     
     /**
      * @brief  Standard non linear Levenberg-Marquardt least squares fit
@@ -32,10 +31,11 @@ public:
      * @param  u0: initial guess [ A, mu, sigma ]
      * @param  params: vector of estimated parameters [ A, mu, sigma ]
      * @param  rep: report on info like RMS error etc.
+     * @param  maxit: maximum algorithm iterations
      * @param  tol: tolerance
      * @retval error code, should be err > 0
      */
-    int fit_lev_marq(const std::vector<double>& x,const std::vector<double>& y,std::vector<double> u0,std::vector<double>& params,alglib::lsfitreport& rep,double tol=1e-6);
+    static int fit_lev_marq(std::vector<double> x,std::vector<double> y,std::vector<double> u0,std::vector<double>& params,alglib::lsfitreport& rep,int maxit=1000,double tol=1e-6);
 };
 
 #endif

@@ -5,10 +5,6 @@ gaussian_fitting::gaussian_fitting()
 {
 }
 
-gaussian_fitting::~gaussian_fitting()
-{
-}
-
 std::vector<double> gaussian_fitting::fit_caruana(std::vector<double> x,std::vector<double> y) {
         Eigen::Matrix<double,3,3> A;
         Eigen::Vector3d b;
@@ -58,7 +54,7 @@ void gauss_grad(const alglib::real_1d_array &u, const alglib::real_1d_array &x, 
     grad[2]=func*pow((x[0]-u[1]),2)/pow(u[2],3);
 }
 
-int gaussian_fitting::fit_lev_marq(const std::vector<double>& x,const std::vector<double>& y,std::vector<double> u0,std::vector<double>& params,alglib::lsfitreport& rep,double tol) {
+int gaussian_fitting::fit_lev_marq(std::vector<double> x,std::vector<double> y,std::vector<double> u0,std::vector<double>& params,alglib::lsfitreport& rep,int maxit,double tol) {
     alglib::real_2d_array x_;
     x_.setlength(x.size(),1);
     x_.setcontent(x.size(),1,x.data());
@@ -68,7 +64,7 @@ int gaussian_fitting::fit_lev_marq(const std::vector<double>& x,const std::vecto
     alglib::real_1d_array u;
     u.setlength(u0.size());
     u.setcontent(u0.size(),u0.data());    
-    alglib::ae_int_t maxits = 0;
+    alglib::ae_int_t maxits=maxit;
     alglib::ae_int_t info;
     alglib::lsfitstate state;
     // alglib::lsfitreport rep;
@@ -76,7 +72,6 @@ int gaussian_fitting::fit_lev_marq(const std::vector<double>& x,const std::vecto
     lsfitsetcond(state, tol, maxits);
     alglib::lsfitfit(state, gauss_func, gauss_grad);
     lsfitresults(state, info, u, rep);
-    std::vector<double> params;
     params.push_back(u[0]);
     params.push_back(u[1]);
     params.push_back(u[2]);
